@@ -3,26 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>موقعي الشخصي</title>
+    <title>صفحة إبراهيم الفضل</title>
     <style>
         body {
-            font-family: Tahoma, sans-serif;
-            background-color: #f4f4f9;
+            font-family: 'Tajawal', sans-serif; /* خط عربي جميل وواضح */
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); /* خلفية زرقاء فخمة متدرجة */
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
             text-align: center;
-            padding-top: 100px;
-            color: #333;
         }
-        h1 {
-            color: #2c3e50;
+
+        .container {
+            background: rgba(255, 255, 255, 0.1); /* مربع شفاف */
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3); /* ظل خفيف */
+            backdrop-filter: blur(10px); /* تأثير ضبابي للخلفية */
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
-        p {
-            font-size: 18px;
-            color: #555;
+
+        .name {
+            font-size: 3.5em; /* حجم كبير وفخم */
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-shadow: 2px 4px 8px rgba(0,0,0,0.5); /* ظل للنص */
+            letter-spacing: 2px;
         }
+
+        .title {
+            font-size: 1.5em;
+            color: #e0e0e0; /* لون فضي فاتح */
+            font-weight: 300;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        /* تأثير ظهور بسيط */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .container {
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        /* إضافة رابط لخط Tajawal من جوجل */
+        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;700;900&display=swap');
     </style>
 </head>
 <body>
-    <h1>مرحباً بك في موقعي الإلكتروني!</h1>
-    <p>تم رفع هذا الموقع بنجاح باستخدام GitHub Pages.</p>
+
+    <div class="container">
+        <div class="name">إبراهيم الفضل</div>
+        <div class="title">الرؤية والإنجاز</div>
+    </div>
+
 </body>
 </html>
