@@ -1,262 +1,32 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RTX - Zsign Installer</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap');
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>items</key>
+    <array>
+        <dict>
+            <key>assets</key>
+            <array>
+                <dict>
+                    <key>kind</key>
+                    <string>software-package</string>
+                    <key>url</key>
+                    <string>https://znvskgutw-sudo.github.io/R/Zsign_2.0.ipa</string>
+                </dict>
+            </array>
+            <key>metadata</key>
+            <dict>
+                <key>bundle-identifier</key>
+                <string>com.rtx.zsign</string>
+                <key>bundle-version</key>
+                <string>2.0</string>
+                <key>kind</key>
+                <string>software</string>
+                <key>title</key>
+                <string>Zsign 2.0</string>
+            </dict>
+        </dict>
+    </array>
+</dict>
+</plist>
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            font-family: 'Tajawal', sans-serif;
-            background-color: #0b0514;
-            color: #ffffff;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
-            padding: 20px;
-        }
-
-        .header {
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 20px;
-            max-width: 450px;
-            margin-bottom: 15px;
-        }
-
-        .logo {
-            font-size: 26px;
-            font-weight: 900;
-            letter-spacing: 2px;
-            background: linear-gradient(90deg, #c084fc, #38bdf8);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .banner-container {
-            width: 100%;
-            max-width: 380px;
-            background: #190b2e;
-            border: 2px solid #3b2064;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(126, 34, 206, 0.3);
-            margin-bottom: 15px;
-            text-align: center;
-            padding: 20px;
-        }
-
-        .app-title {
-            font-size: 22px;
-            font-weight: 900;
-            color: #ffffff;
-            margin-top: 10px;
-        }
-
-        .features-card {
-            width: 100%;
-            max-width: 380px;
-            background: #140924;
-            border: 1px solid #3b2064;
-            border-radius: 20px;
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-            text-align: center;
-        }
-
-        .section-title {
-            font-size: 20px;
-            font-weight: 900;
-            color: #38bdf8;
-            margin-bottom: 15px;
-        }
-
-        .features-list {
-            list-style: none;
-            text-align: right;
-        }
-
-        .features-list li {
-            font-size: 15px;
-            color: #cbd5e1;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .features-list li::before {
-            content: '✦';
-            color: #c084fc;
-        }
-
-        .status-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 6px 20px;
-            border-radius: 50px;
-            font-size: 15px;
-            font-weight: 700;
-            margin-bottom: 15px;
-            border: 1px solid rgba(52, 211, 153, 0.4);
-            background: rgba(16, 185, 129, 0.1);
-            color: #34d399;
-        }
-
-        .download-btn {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 10px;
-            width: 100%;
-            max-width: 380px;
-            background: linear-gradient(135deg, #7c3aed 0%, #5b21b6 100%);
-            color: #ffffff;
-            padding: 15px;
-            font-family: 'Tajawal', sans-serif;
-            font-size: 18px;
-            font-weight: 700;
-            border-radius: 16px;
-            box-shadow: 0 6px 20px rgba(124, 58, 237, 0.4);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            margin-bottom: 12px;
-            cursor: pointer;
-            text-decoration: none;
-            transition: 0.2s;
-        }
-
-        .download-btn:active {
-            transform: scale(0.97);
-        }
-
-        .download-btn svg {
-            width: 20px;
-            height: 20px;
-            fill: currentColor;
-        }
-
-        /* نافذة التثبيت المنبثقة */
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(4px);
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-        }
-
-        .modal-box {
-            background: #1e1b2e;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            padding: 25px 20px;
-            border-radius: 24px;
-            width: 85%;
-            max-width: 300px;
-            text-align: center;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7);
-        }
-
-        .modal-text {
-            font-size: 17px;
-            font-weight: 700;
-            color: #ffffff;
-            margin-bottom: 25px;
-            line-height: 1.5;
-        }
-
-        .modal-buttons {
-            display: flex;
-            gap: 10px;
-        }
-
-        .btn-cancel, .btn-install {
-            flex: 1;
-            padding: 12px;
-            font-family: 'Tajawal', sans-serif;
-            font-size: 16px;
-            font-weight: 700;
-            border-radius: 14px;
-            border: none;
-            cursor: pointer;
-            text-decoration: none;
-            text-align: center;
-        }
-
-        .btn-cancel {
-            background: #2d2640;
-            color: #a78bfa;
-        }
-
-        .btn-install {
-            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
-            color: #ffffff;
-        }
-    </style>
-</head>
-<body>
-
-    <div class="header">
-        <div class="logo">RTX</div>
-        <div style="font-size: 24px; color: #c084fc; cursor: pointer;">☰</div>
-    </div>
-
-    <div class="banner-container">
-        <div class="app-title">Zsign 2.0</div>
-    </div>
-
-    <div class="features-card">
-        <div class="section-title">مميزات التطبيق</div>
-        <ul class="features-list">
-            <li>توقيع شهادات الآيفون بكفاءة عالية</li>
-            <li>إمكانية دمج التطبيقات وتثبيتها</li>
-            <li>أداة قوية وسريعة للاستخدام</li>
-        </ul>
-    </div>
-
-    <div class="status-badge">
-        <span>✔ يعمل</span>
-    </div>
-
-    <button onclick="openModal()" class="download-btn">
-        <span>Install Zsign</span>
-        <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
-    </button>
-
-    <div id="installModal" class="modal-overlay">
-        <div class="modal-box">
-            <div class="modal-text">يرغب الموقع في تثبيت "Zsign 2.0"</div>
-            <div class="modal-buttons">
-                <button onclick="closeModal()" class="btn-cancel">إلغاء</button>
-                <a href="حط_رابط_ملف_Zsign_المباشر_هنا.ipa" onclick="closeModal()" class="btn-install">تثبيت</a>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        function openModal() {
-            document.getElementById('installModal').style.display = 'flex';
-        }
-        function closeModal() {
-            document.getElementById('installModal').style.display = 'none';
-        }
-    </script>
-
-</body>
-</html>
