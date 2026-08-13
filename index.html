@@ -2,14 +2,13 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>Modark TikTok Cracker Panel</title>
+    <title>Modark File Loader Panel</title>
     <style>
         body { background-color: #0f172a; color: #f8fafc; font-family: monospace; padding: 20px; }
         .container { max-width: 600px; margin: auto; background: #1e293b; padding: 20px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.5); }
-        input, textarea, button { width: 100%; margin-top: 10px; padding: 10px; background: #0f172a; border: 1px solid #334155; color: #fff; border-radius: 4px; }
+        input, button { width: 100%; margin-top: 10px; padding: 10px; background: #0f172a; border: 1px solid #334155; color: #fff; border-radius: 4px; }
         button { background: #2563eb; cursor: pointer; font-weight: bold; }
-        button:hover { background: #1d4ed8; }
-        .log-box { margin-top: 20px; background: #090d16; padding: 10px; height: 200px; overflow-y: auto; border: 1px solid #334155; font-size: 14px; }
+        .log-box { margin-top: 20px; background: #090d16; padding: 10px; height: 200px; overflow-y: auto; border: 1px solid #334155; }
         .success { color: #22c55e; font-weight: bold; }
         .fail { color: #ef4444; }
     </style>
@@ -17,61 +16,47 @@
 <body>
 
 <div class="container">
-    <h2>Modark Web Brute Panel</h2>
-    <label>يوزر تيك توك:</label>
-    <input type="text" id="username" placeholder="أدخل اسم المستخدم هنا...">
-    
-    <label>ملف كلمات المرور (كلمة في كل سطر):</label>
-    <textarea id="passwords" rows="6" placeholder="123456&#10;password&#10;secret123"></textarea>
-    
-    <button onclick="startCracking()">ابدأ الفحص الآن يا رئيس</button>
-    
+    <h2>Modark File Loader</h2>
+    <input type="text" id="username" placeholder="يوزر تيك توك...">
+    <input type="file" id="fileInput" accept=".txt">
+    <button onclick="processFile()">ابدأ الفحص يا بوص</button>
     <div class="log-box" id="logBox"></div>
 </div>
 
 <script>
-    async function startCracking() {
+    function processFile() {
+        const fileInput = document.getElementById('fileInput');
         const username = document.getElementById('username').value.trim();
-        const passText = document.getElementById('passwords').value.trim();
         const logBox = document.getElementById('logBox');
         
-        logBox.innerHTML = '';
-        if (!username || !passText) {
-            logBox.innerHTML += `<div class="fail">عبي الحقول يا بوص لا تهبد!</div>`;
+        if (!fileInput.files.length || !username) {
+            logBox.innerHTML = '<div class="fail">ارفع الملف واكتب اليوزر يا برودي!</div>';
             return;
         }
 
-        const passwords = passText.split('\n');
-        logBox.innerHTML += `<div>[+] بدء فحص الحساب: ${username} ...</div>`;
+        const reader = new FileReader();
+        reader.onload = async function(e) {
+            const lines = e.target.result.split('\n');
+            logBox.innerHTML = `<div>[+] جاري فحص ${lines.length} كلمة سر...</div>`;
+            
+            for (let pwd of lines) {
+                pwd = pwd.trim();
+                if (!pwd) continue;
 
-        for (let pwd of passwords) {
-            pwd = pwd.trim();
-            if (!pwd) continue;
-
-            // محاكاة الاتصال لفحص الكلمة
-            let success = await simulateCheck(username, pwd);
-
-            if (success) {
-                logBox.innerHTML += `<div class="success">[✔] الكلمة الصحيحة: ${pwd} [صح]</div>`;
-                break;
-            } else {
-                logBox.innerHTML += `<div class="fail">[-] خطأ: ${pwd}</div>`;
+                let success = await simulateCheck(username, pwd);
+                if (success) {
+                    logBox.innerHTML += `<div class="success">[✔] الكلمة الصحيحة: ${pwd} [صح]</div>`;
+                    break;
+                } else {
+                    logBox.innerHTML += `<div class="fail">[-] خطأ: ${pwd}</div>`;
+                }
             }
-            logBox.scrollTop = logBox.scrollHeight;
-        }
+        };
+        reader.readAsText(fileInput.files[0]);
     }
 
-    function simulateCheck(user, pwd) {
-        return new Promise(resolve => {
-            setTimeout(() => {
-                // محاكاة المطابقة
-                if (pwd === "secret123") {
-                    resolve(true);
-                } else {
-                    resolve(false);
-                }
-            }, 300);
-        });
+    function simulateCheck(u, p) {
+        return new Promise(resolve => setTimeout(() => resolve(p === "secret123"), 200));
     }
 </script>
 
