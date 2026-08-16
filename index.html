@@ -2,63 +2,278 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>Modark File Loader Panel</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>قارئ الملفات الفاخر</title>
     <style>
-        body { background-color: #0f172a; color: #f8fafc; font-family: monospace; padding: 20px; }
-        .container { max-width: 600px; margin: auto; background: #1e293b; padding: 20px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.5); }
-        input, button { width: 100%; margin-top: 10px; padding: 10px; background: #0f172a; border: 1px solid #334155; color: #fff; border-radius: 4px; }
-        button { background: #2563eb; cursor: pointer; font-weight: bold; }
-        .log-box { margin-top: 20px; background: #090d16; padding: 10px; height: 200px; overflow-y: auto; border: 1px solid #334155; }
-        .success { color: #22c55e; font-weight: bold; }
-        .fail { color: #ef4444; }
+        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&display=swap');
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+            color: #f8fafc;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 700px;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(to right, #38bdf8, #818cf8, #c084fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #94a3b8;
+            font-size: 0.95rem;
+        }
+
+        /* خانة رفع الملفات */
+        .drop-zone {
+            border: 2px dashed rgba(129, 140, 248, 0.3);
+            border-radius: 16px;
+            padding: 40px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: rgba(15, 23, 42, 0.4);
+            position: relative;
+            margin-bottom: 25px;
+        }
+
+        .drop-zone:hover, .drop-zone.dragover {
+            border-color: #38bdf8;
+            background: rgba(56, 189, 248, 0.05);
+            box-shadow: 0 0 20px rgba(56, 189, 248, 0.1);
+        }
+
+        .drop-zone input {
+            display: none;
+        }
+
+        .drop-zone-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            color: #818cf8;
+        }
+
+        .drop-zone-text {
+            color: #cbd5e1;
+            font-size: 1.05rem;
+        }
+
+        .drop-zone-text span {
+            color: #38bdf8;
+            font-weight: 500;
+        }
+
+        /* قسم عرض المحتوى */
+        .output-section {
+            display: none;
+            position: relative;
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .output-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .file-name {
+            font-size: 0.9rem;
+            color: #38bdf8;
+            background: rgba(56, 189, 248, 0.1);
+            padding: 4px 12px;
+            border-radius: 20px;
+            border: 1px solid rgba(56, 189, 248, 0.2);
+        }
+
+        /* زر النسخ الفخم */
+        .copy-btn {
+            background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+            color: white;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+        }
+
+        .copy-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(99, 102, 241, 0.5);
+        }
+
+        .copy-btn:active {
+            transform: translateY(0);
+        }
+
+        .copy-btn.copied {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+        }
+
+        /* صندوق الكود */
+        textarea.code-output {
+            width: 100%;
+            height: 250px;
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 14px;
+            padding: 16px;
+            color: #e2e8f0;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            resize: vertical;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        textarea.code-output:focus {
+            border-color: #818cf8;
+            box-shadow: 0 0 15px rgba(129, 140, 248, 0.15);
+        }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h2>Modark File Loader</h2>
-    <input type="text" id="username" placeholder="يوزر تيك توك...">
-    <input type="file" id="fileInput" accept=".txt">
-    <button onclick="processFile()">ابدأ الفحص يا بوص</button>
-    <div class="log-box" id="logBox"></div>
-</div>
+    <div class="container">
+        <div class="header">
+            <h1>قارئ الأكواد الفاخر</h1>
+            <p>اسحب وأفلت أي ملف لاستخراج محتواه البريدي أو النصي فوراً</p>
+        </div>
 
-<script>
-    function processFile() {
+        <!-- خانة السحب والرفع -->
+        <div class="drop-zone" id="dropZone">
+            <div class="drop-zone-icon">📁</div>
+            <div class="drop-zone-text">اسحب الملف هنا أو <span>استعرض ملفات جهازك</span></div>
+            <input type="file" id="fileInput">
+        </div>
+
+        <!-- قسم عرض النتيجة -->
+        <div class="output-section" id="outputSection">
+            <div class="output-header">
+                <span class="file-name" id="fileName">file.txt</span>
+                <button class="copy-btn" id="copyBtn">
+                    <span>📋</span> نسخ المحتوى
+                </button>
+            </div>
+            <textarea class="code-output" id="codeOutput" readonly placeholder="سيظهر محتوى الملف هنا..."></textarea>
+        </div>
+    </div>
+
+    <script>
+        const dropZone = document.getElementById('dropZone');
         const fileInput = document.getElementById('fileInput');
-        const username = document.getElementById('username').value.trim();
-        const logBox = document.getElementById('logBox');
-        
-        if (!fileInput.files.length || !username) {
-            logBox.innerHTML = '<div class="fail">ارفع الملف واكتب اليوزر يا برودي!</div>';
-            return;
+        const outputSection = document.getElementById('outputSection');
+        const codeOutput = document.getElementById('codeOutput');
+        const fileNameSpan = document.getElementById('fileName');
+        const copyBtn = document.getElementById('copyBtn');
+
+        // فتح مستعرض الملفات عند الضغط على الخانة
+        dropZone.addEventListener('click', () => fileInput.click());
+
+        // تأثيرات السحب والإفلات
+        ['dragenter', 'dragover'].forEach(eventName => {
+            dropZone.addEventListener(eventName, (e) => {
+                e.preventDefault();
+                dropZone.classList.add('dragover');
+            }, false);
+        });
+
+        ['dragleave', 'drop'].forEach(eventName => {
+            dropZone.addEventListener(eventName, (e) => {
+                e.preventDefault();
+                dropZone.classList.remove('dragover');
+            }, false);
+        });
+
+        // التعامل مع الملف المرفوع عبر السحب
+        dropZone.addEventListener('drop', (e) => {
+            const dt = e.dataTransfer;
+            const files = dt.files;
+            if (files.length > 0) {
+                handleFile(files[0]);
+            }
+        });
+
+        // التعامل مع الملف المرفوع عبر التصفح
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                handleFile(e.target.files[0]);
+            }
+        });
+
+        // قراءة الملف
+        function handleFile(file) {
+            fileNameSpan.textContent = file.name;
+            const reader = new FileReader();
+            
+            reader.onload = function(e) {
+                codeOutput.value = e.target.result;
+                outputSection.style.display = 'block';
+            };
+            
+            reader.readAsText(file);
         }
 
-        const reader = new FileReader();
-        reader.onload = async function(e) {
-            const lines = e.target.result.split('\n');
-            logBox.innerHTML = `<div>[+] جاري فحص ${lines.length} كلمة سر...</div>`;
-            
-            for (let pwd of lines) {
-                pwd = pwd.trim();
-                if (!pwd) continue;
+        // زر النسخ الاحترافي
+        copyBtn.addEventListener('click', () => {
+            if (!codeOutput.value) return;
 
-                let success = await simulateCheck(username, pwd);
-                if (success) {
-                    logBox.innerHTML += `<div class="success">[✔] الكلمة الصحيحة: ${pwd} [صح]</div>`;
-                    break;
-                } else {
-                    logBox.innerHTML += `<div class="fail">[-] خطأ: ${pwd}</div>`;
-                }
-            }
-        };
-        reader.readAsText(fileInput.files[0]);
-    }
+            navigator.clipboard.writeText(codeOutput.value).then(() => {
+                const originalText = copyBtn.innerHTML;
+                copyBtn.innerHTML = '<span>✨</span> تم النسخ!';
+                copyBtn.classList.add('copied');
 
-    function simulateCheck(u, p) {
-        return new Promise(resolve => setTimeout(() => resolve(p === "secret123"), 200));
-    }
-</script>
-
+                setTimeout(() => {
+                    copyBtn.innerHTML = originalText;
+                    copyBtn.classList.remove('copied');
+                }, 2000);
+            });
+        });
+    </script>
 </body>
 </html>
