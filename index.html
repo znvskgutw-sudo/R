@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>موسوعة البرمجة | إبراهيم الفضل</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #070b14;
+      color: white;
+      min-height: 100vh;
+    }
+
+    header {
+      padding: 60px 20px;
+      text-align: center;
+      background: linear-gradient(135deg, #101a35, #070b14);
+      border-bottom: 1px solid #26365c;
+    }
+
+    .copyright {
+      color: #7da7ff;
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-size: 42px;
+      margin-bottom: 15px;
+    }
+
+    .subtitle {
+      color: #aab4cc;
+      font-size: 17px;
+    }
+
+    .container {
+      width: 92%;
+      max-width: 1000px;
+      margin: 35px auto;
+    }
+
+    .card {
+      background: #0d1424;
+      border: 1px solid #202f50;
+      border-radius: 20px;
+      padding: 25px;
+      margin-bottom: 20px;
+      transition: 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: #507cff;
+      box-shadow: 0 10px 35px rgba(50, 100, 255, 0.15);
+    }
+
+    .card h2 {
+      color: #78a0ff;
+      margin-bottom: 15px;
+    }
+
+    .card p {
+      color: #c4ccdc;
+      line-height: 1.9;
+      font-size: 16px;
+    }
+
+    .items {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 15px;
+      margin-top: 15px;
+    }
+
+    .item {
+      background: #111b30;
+      border-radius: 15px;
+      padding: 18px;
+      border: 1px solid #243556;
+    }
+
+    .item h3 {
+      color: #fff;
+      margin-bottom: 8px;
+    }
+
+    .item p {
+      font-size: 14px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 35px 15px;
+      margin-top: 40px;
+      background: #050810;
+      color: #78849d;
+    }
+
+    .name {
+      color: #7da7ff;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+
+    <div class="copyright">
+      © جميع الحقوق محفوظة — إبراهيم الفضل
+    </div>
+
+    <h1>💻 موسوعة البرمجة</h1>
+
+    <p class="subtitle">
+      مرجع مبسط لفهم البرمجة ومصطلحاتها الأساسية
+    </p>
+
+  </header>
+
+  <main class="container">
+
+    <section class="card">
+      <h2>🧠 ما هي البرمجة؟</h2>
+
+      <p>
+        البرمجة هي عملية كتابة مجموعة من التعليمات والأوامر
+        التي تخبر الكمبيوتر بما يجب عليه فعله.
+        تستخدم البرمجة لإنشاء المواقع والتطبيقات والألعاب
+        والبرامج والأنظمة والعديد من التقنيات الحديثة.
+      </p>
+    </section>
+
+    <section class="card">
+      <h2>💻 ما هو الكود؟</h2>
+
+      <p>
+        الكود هو مجموعة من التعليمات المكتوبة باستخدام لغة برمجة
+        معينة، ويقوم الكمبيوتر بتنفيذ هذه التعليمات للحصول على
+        نتيجة محددة.
+      </p>
+    </section>
+
+    <section class="card">
+      <h2>🔤 ما هي لغة البرمجة؟</h2>
+
+      <p>
+        لغة البرمجة هي لغة لها قواعد وأوامر يستخدمها المبرمج
+        للتواصل مع الكمبيوتر وكتابة البرامج.
+      </p>
+
+      <div class="items">
+
+        <div class="item">
+          <h3>🐍 Python</h3>
+          <p>لغة سهلة ومشهورة وتستخدم في مجالات كثيرة مثل الذكاء الاصطناعي.</p>
+        </div>
+
+        <div class="item">
+          <h3>🌐 JavaScript</h3>
+          <p>لغة مهمة لتطوير المواقع وتطبيقات الويب.</p>
+        </div>
+
+        <div class="item">
+          <h3>🎮 Lua</h3>
+          <p>لغة تستخدم في الألعاب وبعض الأنظمة، ومنها Roblox.</p>
+        </div>
+
+        <div class="item">
+          <h3>⚙️ C++</h3>
+          <p>لغة قوية تستخدم في الألعاب والبرامج والأنظمة عالية الأداء.</p>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>📚 مصطلحات برمجية</h2>
+
+      <div class="items">
+
+        <div class="item">
+          <h3>Variable</h3>
+          <p>متغير يستخدم لتخزين قيمة داخل البرنامج.</p>
+        </div>
+
+        <div class="item">
+          <h3>Function</h3>
+          <p>مجموعة أوامر تستخدم لتنفيذ مهمة معينة.</p>
+        </div>
+
+        <div class="item">
+          <h3>Loop</h3>
+          <p>طريقة لتكرار مجموعة من الأوامر.</p>
+        </div>
+
+        <div class="item">
+          <h3>Condition</h3>
+          <p>شرط يجعل البرنامج يتخذ قرارًا معينًا.</p>
+        </div>
+
+        <div class="item">
+          <h3>Bug</h3>
+          <p>خطأ أو مشكلة داخل البرنامج.</p>
+        </div>
+
+        <div class="item">
+          <h3>Debugging</h3>
+          <p>عملية اكتشاف الأخطاء البرمجية وإصلاحها.</p>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>⚙️ كيف تعمل البرمجة؟</h2>
+
+      <p>
+        يبدأ المبرمج بتحديد المشكلة أو الفكرة، ثم يضع خطوات
+        لحلها، وبعد ذلك يكتب هذه الخطوات باستخدام لغة برمجة.
+        يقوم الكمبيوتر بتنفيذ التعليمات وتظهر النتيجة للمستخدم.
+      </p>
+    </section>
+
+    <section class="card">
+      <h2>📝 ملاحظة</h2>
+
+      <p>
+        البرمجة ليست مجرد حفظ الأكواد، بل تعتمد بشكل كبير
+        على التفكير المنطقي وحل المشكلات وفهم طريقة عمل
+        البرامج والأنظمة.
+      </p>
+    </section>
+
+  </main>
+
+  <footer>
+
+    © 2026 جميع الحقوق محفوظة
+
+    <br><br>
+
+    <span class="name">إبراهيم الفضل</span>
+
+  </footer>
+
+</body>
+</html>
